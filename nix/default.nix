@@ -13,6 +13,7 @@ let
               ghc.package = ghc;
               compiler.version = pkgs.lib.mkForce ghc.version;
               reinstallableLibGhc = true;
+              nonReinstallablePkgs = [ "base" ];
               packages.ghc.flags.ghci = pkgs.lib.mkForce true;
               packages.ghci.flags.ghci = pkgs.lib.mkForce true;
               # This fixes a performance issue, probably https://gitlab.haskell.org/ghc/ghc/issues/15524
@@ -23,7 +24,7 @@ let
         let packages = mkPackages args;
         in packages.ghcide.components.exes.ghcide // { inherit packages; };
     in { export = {
-          # ghcide-ghc881 = mkHieCore { ghc = pkgs.haskell-nix.compiler.ghc881; stackYaml = "stack88.yaml"; };
+          ghcide-ghc881 = mkHieCore { ghc = pkgs.haskell.compiler.ghc881; stackYaml = "stack88.yaml"; };
           ghcide-ghc865 = mkHieCore { ghc = pkgs.haskell-nix.compiler.ghc865; stackYaml = "stack.yaml"; };
           ghcide-ghc864 = mkHieCore { ghc = pkgs.haskell-nix.compiler.ghc864; stackYaml = "stack.yaml"; };
           ghcide-ghc844 = mkHieCore { ghc = pkgs.haskell-nix.compiler.ghc844; stackYaml = "stack84.yaml"; };
